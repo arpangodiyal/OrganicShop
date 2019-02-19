@@ -4,15 +4,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes} from '@angular/router';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { LoginComponent } from './login/login.component';
+import { AuthService } from './auth.service';
+import { AuthGaurdService } from './auth-gaurd.service';
+import { CheckOutComponent } from './check-out/check-out.component';
 
 const appRoutes: Routes = [
   { path: 'shoppingCart', component:  ShoppingCartComponent},
   { path: 'login', component:  LoginComponent},
+  {path: 'check-out', component: CheckOutComponent, canActivate:[AuthGaurdService]}
 ];
 
 
@@ -30,7 +34,8 @@ var config = {
   declarations: [
     AppComponent,
     ShoppingCartComponent,
-    LoginComponent
+    LoginComponent,
+    CheckOutComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,10 @@ var config = {
       // { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGaurdService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
