@@ -11,7 +11,6 @@ export class UserService {
   }
 
   save(user: firebase.User){
-    console.log('Hello');
-    this.db.object('/users/' + user.uid).update({'Name':user.displayName});
+    this.db.object('/users/' + user.uid).update({'Name':user.displayName, 'Email':user.email});
   }
 }

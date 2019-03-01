@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     this.auth.login();
     this.auth.afAuth.user.subscribe(response => {
       if(response){
+        console.log(response);
         this.UserService.save(response);
       }
     })
