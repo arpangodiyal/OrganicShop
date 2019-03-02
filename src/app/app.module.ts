@@ -6,6 +6,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
@@ -13,12 +14,17 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { AuthGaurdService } from './auth-gaurd.service';
+import { AdminAuthGaurdService } from './admin-auth-gaurd.service';
 import { CheckOutComponent } from './check-out/check-out.component';
+import { AdminProductsComponent } from './admin-products/admin-products.component';
+import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 
 const appRoutes: Routes = [
   { path: 'shoppingCart', component:  ShoppingCartComponent},
   { path: 'login', component:  LoginComponent},
-  {path: 'check-out', component: CheckOutComponent, canActivate:[AuthGaurdService]}
+  {path: 'check-out', component: CheckOutComponent, canActivate:[AuthGaurdService]},
+  {path: 'admin-orders', component: AdminOrdersComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
+  {path: 'admin-products', component: AdminProductsComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
 ];
 
 
@@ -37,7 +43,9 @@ var config = {
     AppComponent,
     ShoppingCartComponent,
     LoginComponent,
-    CheckOutComponent
+    CheckOutComponent,
+    AdminProductsComponent,
+    AdminOrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +54,7 @@ var config = {
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     RouterModule.forRoot(
       appRoutes,
       // { enableTracing: true } // <-- debugging purposes only
@@ -54,7 +63,8 @@ var config = {
   providers: [
     AuthService,
     AuthGaurdService,
-    UserService
+    UserService,
+    AdminAuthGaurdService,
   ],
   bootstrap: [AppComponent]
 })
