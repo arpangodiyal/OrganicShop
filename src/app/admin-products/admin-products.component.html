@@ -1,3 +1,24 @@
 <div class="container">
+  <br>
   <a routerLink="/admin-products/new"><button class="btn btn-primary">New Product</button></a>
+  <br> <br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+      <tr *ngFor="let p of products | async; let i = index ">
+        <td>{{i+1}}</td>
+        <td>{{p.data.title}}</td>
+        <td>{{p.data.price}}$</td>
+        <td>{{p.data.category}}</td>
+        <td><a routerLink="/admin-products/{{p.key}}">Edit</a></td>
+      </tr>
+  </table>
 </div>
