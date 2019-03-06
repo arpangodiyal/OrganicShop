@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
@@ -30,6 +30,12 @@ export class ProductService {
 
   update(product:{}, id:string){
     this.db.object('/products/' + id).update(product);
+  }
+
+  deleteProduct(id){
+    let itemRef;
+    itemRef = this.db.object('/products/' + id);
+    itemRef.remove();
   }
 
 }
