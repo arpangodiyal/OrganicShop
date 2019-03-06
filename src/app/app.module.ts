@@ -29,8 +29,9 @@ const appRoutes: Routes = [
   { path: 'login', component:  LoginComponent},
   {path: 'check-out', component: CheckOutComponent, canActivate:[AuthGaurdService]},
   {path: 'admin-orders', component: AdminOrdersComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
-  {path: 'admin-products', component: AdminProductsComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
   {path: 'admin-products/new', component: ProductformComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
+  {path: 'admin-products/:id', component: ProductformComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
+  {path: 'admin-products', component: AdminProductsComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
 ];
 
 
