@@ -23,7 +23,7 @@ export class ProductformComponent implements OnInit, OnDestroy {
     private route:ActivatedRoute,
     private db:AngularFireDatabase,
     private router:Router) {
-    this.categories = categoryService.getCategories();
+    this.categories = categoryService.getAll();
 
     this.id = this.route.snapshot.paramMap.get('id');
 

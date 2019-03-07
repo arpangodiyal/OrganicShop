@@ -2,23 +2,45 @@
   <br>
   <a routerLink="/admin-products/new"><button class="btn btn-primary">New Product</button></a>
   <br> <br>
-  <table class="table">
+
+  <p>
+    <input #input (keyup)="filter(input.value)" type="text" id="search" placeholder="Search products" class="form-control">
+  </p>
+
+  <table class="table table-striped" [mfData]="filteredProducts" #mf="mfDataTable" [mfRowsOnPage]="5">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Price</th>
-        <th scope="col">Category</th>
-        <th scope="col"></th>
-      </tr>
+      <th style="width: 20%">
+          <mfDefaultSorter by="#">#</mfDefaultSorter>
+      </th>
+      <th style="width: 20%">
+          <mfDefaultSorter by="title">Title</mfDefaultSorter>
+      </th>
+      <th style="width: 20%">
+          <mfDefaultSorter by="price">Price</mfDefaultSorter>
+      </th>
+      <th style="width: 20%">
+          <mfDefaultSorter by="category">Category</mfDefaultSorter>
+      </th>
+      <th style="width: 20%">
+          <mfDefaultSorter by="category"></mfDefaultSorter>
+      </th>
     </thead>
 
-      <tr *ngFor="let p of products | async; let i = index ">
-        <td>{{i+1}}</td>
-        <td>{{p.data.title}}</td>
-        <td>{{p.data.price}}$</td>
-        <td>{{p.data.category}}</td>
-        <td><a routerLink="/admin-products/{{p.key}}">Edit</a></td>
-      </tr>
+    <tbody>
+        <tr *ngFor="let item of mf.data; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.price}}$</td>
+            <td>{{item.category}}</td>
+            <td><a routerLink='/admin-products/{{item.key}}'>Edit</a></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
   </table>
 </div>

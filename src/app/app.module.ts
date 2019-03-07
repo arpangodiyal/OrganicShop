@@ -9,6 +9,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ngx-custom-validators';
+import { DataTableModule } from "angular-6-datatable";
 
 import { AppComponent } from './app.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
@@ -23,15 +24,17 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { ProductformComponent } from './productform/productform.component';
+import { ProductComponent } from './product/product.component';
 
 const appRoutes: Routes = [
-  { path: 'shoppingCart', component:  ShoppingCartComponent},
-  { path: 'login', component:  LoginComponent},
+  {path: 'shoppingCart', component:  ShoppingCartComponent},
+  {path: 'login', component:  LoginComponent},
   {path: 'check-out', component: CheckOutComponent, canActivate:[AuthGaurdService]},
   {path: 'admin-orders', component: AdminOrdersComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
   {path: 'admin-products/new', component: ProductformComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
   {path: 'admin-products/:id', component: ProductformComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
   {path: 'admin-products', component: AdminProductsComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
+  {path: '', component:  ProductComponent},
 ];
 
 
@@ -53,13 +56,15 @@ var config = {
     CheckOutComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    ProductformComponent
+    ProductformComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     CustomFormsModule,
+    DataTableModule,
     FormsModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(config),
