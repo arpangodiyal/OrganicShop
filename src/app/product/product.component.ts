@@ -3,6 +3,7 @@ import { ProductService } from '../product.service';
 import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ShoppingCartService } from '../shopping-cart.service';
 
 @Component({
   selector: 'app-product',
@@ -20,7 +21,8 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   constructor(private productService:ProductService, 
     private categoryService:CategoryService,
-    private route:ActivatedRoute) { 
+    private route:ActivatedRoute,
+    private cartService:ShoppingCartService) { 
       this.categories = this.categoryService.getAll();
 
       this.subscription1 = this.route.queryParams.subscribe(r => {
@@ -35,6 +37,11 @@ export class ProductComponent implements OnInit, OnDestroy {
           }
         });
       });
+  }
+
+  addToCart(product){
+
+    this.cartService.addToCart(product);
   }
 
   ngOnInit() {

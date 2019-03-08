@@ -20,6 +20,7 @@ import { UserService } from './user.service';
 import { ProductService } from './product.service';
 import { AuthGaurdService } from './auth-gaurd.service';
 import { AdminAuthGaurdService } from './admin-auth-gaurd.service';
+import { ShoppingCartService } from './shopping-cart.service';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
@@ -82,6 +83,7 @@ var config = {
     AdminAuthGaurdService,
     CategoryService,
     ProductService,
+    ShoppingCartService,
   ],
   bootstrap: [AppComponent]
 })
