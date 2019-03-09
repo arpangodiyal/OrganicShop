@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,8 +10,8 @@ export class ShoppingCartService {
 
   constructor(private db:AngularFireDatabase) { }
 
-  private getCart(cartId:string){
-    return this.db.object('/shopping-cart/' + cartId);
+  getItem(cartId:string, product){
+    return this.db.object('/shopping-cart/' + cartId + '/items/' + product.key);
   }
 
   private create(){
@@ -46,5 +46,22 @@ export class ShoppingCartService {
       }
 
     })
+  }
+
+  async removeFromCart(product): Promise<number> {
+    let cartId = await this.getOrCreateCartId();
+    let item = this.db.object('/shopping-cart/' + cartId + '/items/' + product.key);
+    return (item.valueChanges() as Observable<{'quantity':number}>).pipe(
+      take(1)
+    ).pipe(map(res => {
+        if(res.quantity == 1){
+          return item.remove().then(r => {
+            return 0;
+          })
+        }
+        else return item.update({quantity: res.quantity - 1}).then(r => {
+          return 1;
+        })
+      })).toPromise();
   }
 }
