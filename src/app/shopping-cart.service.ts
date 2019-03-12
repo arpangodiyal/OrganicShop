@@ -14,13 +14,26 @@ export class ShoppingCartService {
     return this.db.object('/shopping-cart/' + cartId + '/items/' + product.key);
   }
 
+  getAllitems(){
+    let cartId = localStorage.getItem('cartId');
+    return this.db.object('/shopping-cart/' + cartId + '/items').valueChanges().pipe(
+      map(s => {
+        let total = 0;
+        for(let i in s){
+          total += s[i].quantity;
+        }
+        return total;
+      })
+    );
+  }
+
   private create(){
     return this.db.list('/shopping-cart').push({
       dateCreated : new Date().getTime()
     });
   }
 
-  private async getOrCreateCartId(){
+  async getOrCreateCartId(){
     let cartId = localStorage.getItem('cartId');
     if( !cartId ){
       let result = await this.create();

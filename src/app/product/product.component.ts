@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   subscription2: Subscription;
   subscription3: Subscription;
   query:string = '';
+  cartId:string = localStorage.getItem('CartId');
 
   constructor(private productService:ProductService, 
     private categoryService:CategoryService,
@@ -37,10 +38,10 @@ export class ProductComponent implements OnInit, OnDestroy {
           else{
             this.filteredProducts = this.products;
           } 
-          let cartId = localStorage.getItem('cartId');
+          this.cartId = localStorage.getItem('cartId');
 
           this.filteredProducts.forEach(cur => {
-            let item = this.cartService.getItem(cartId, cur);
+            let item = this.cartService.getItem(this.cartId, cur);
             this.subscription3 = (item.valueChanges() as Observable<{'quantity':number, 'product':{'key'}}>).subscribe(s => {
               if(s) this.itemNo[s.product.key] = s.quantity;
             })
@@ -49,8 +50,13 @@ export class ProductComponent implements OnInit, OnDestroy {
       });
   }
 
-  addToCart(product){
+  async addToCart(product){
+    if(!this.cartId)this.cartId = await this.cartService.getOrCreateCartId();
     this.cartService.addToCart(product);
+    let item = this.cartService.getItem(this.cartId, product);
+    (item.valueChanges() as Observable<{'quantity':number, 'product':{'key'}}>).subscribe(s => {
+      if(s) this.itemNo[s.product.key] = s.quantity;
+    })
   }
 
   removeFromCart(product){

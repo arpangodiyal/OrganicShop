@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
+import { ShoppingCartService } from './shopping-cart.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,14 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   title = 'projectShop';
   user: Observable<{}>;
-  constructor(public auth : AuthService){
+  totalItems:Observable<number>;
+  constructor(public auth : AuthService, 
+    private cartService:ShoppingCartService)
+  {
+
     this.user = auth.getUser();
+    this.totalItems = this.cartService.getAllitems();
+    
   }
 
   
