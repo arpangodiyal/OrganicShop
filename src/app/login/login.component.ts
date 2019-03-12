@@ -9,7 +9,9 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth:AuthService, private UserService: UserService) { }
+  constructor(private auth:AuthService, private UserService: UserService) { 
+    console.log('Login loaded');
+  }
 
   ngOnInit() {
   }
