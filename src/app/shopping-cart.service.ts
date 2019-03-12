@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { take, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Product } from './models/productInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,23 @@ export class ShoppingCartService {
     return this.db.object('/shopping-cart/' + cartId + '/items/' + product.key);
   }
 
-  getAllitems(){
+  getAllItems(){
+    let cartId = localStorage.getItem('cartId');
+    let items = this.db.object('/shopping-cart/' + cartId + '/items');
+    return (items.valueChanges() as Observable<{product:Product, quantity:number}>)
+      .pipe(
+        map(s => {
+          let allItems = [];
+          for(let key in s){
+            let obj:{product:Product, quantity:number}
+            allItems.push(s[key]);
+          }
+          return allItems;
+        })
+      );
+  }
+
+  getAllitemsCount(){
     let cartId = localStorage.getItem('cartId');
     return this.db.object('/shopping-cart/' + cartId + '/items').valueChanges().pipe(
       map(s => {

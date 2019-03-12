@@ -1,3 +1,23 @@
 <div class="container">
-  <p>Shopping Cart works</p>
+  <h1>Shopping Cart </h1>
+
+  <ng-container *ngIf="totalItemsCount | async as total">
+    <p>You have {{total}} items in your shopping cart </p>
+  </ng-container>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let p of cartItems">
+      <td>{{p.product.title}}</td>
+      <td>{{p.product.price}}</td>
+      <td>{{p.quantity}}</td>
+    </tr>
+  </table>
 </div>

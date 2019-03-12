@@ -17,7 +17,7 @@ export class AppComponent {
   {
 
     this.user = auth.getUser();
-    this.totalItems = this.cartService.getAllitems();
+    this.totalItems = this.cartService.getAllitemsCount();
     
   }
 
