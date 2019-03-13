@@ -94,4 +94,9 @@ export class ShoppingCartService {
         })
       })).toPromise();
   }
+
+  removeAllItems(){
+    let cartId = localStorage.getItem('cartId');
+    this.db.object('/shopping-cart/' + cartId + '/items').remove();
+  }
 }

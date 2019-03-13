@@ -5,19 +5,38 @@
     <p>You have {{total}} items in your shopping cart </p>
   </ng-container>
 
-  <table class="table">
+  <table class="table col-10">
     <thead>
       <tr>
         <th>Item</th>
-        <th>Price</th>
         <th>Quantity</th>
         <th>Total Price</th>
       </tr>
     </thead>
     <tr *ngFor="let p of cartItems">
-      <td>{{p.product.title}}</td>
-      <td>{{p.product.price}}</td>
-      <td>{{p.quantity}}</td>
+      <td>
+        <span class="badge"><img style="height:80px; width:80px;border-radius: 100%" [src]="p.product.imageUrl" class="thumbnail" alt=""></span>
+        {{p.product.title}}
+      </td>
+      <td class="row">
+        <div class="col-md-2">
+          <button (click)="remove(p.product)" class="btn btn-dark">-</button>
+        </div>
+        <div class="col-md-2">
+            <p class="text-center">{{p.quantity}}</p>
+        </div>
+        <div class="col-md-2">
+            <button (click)="add(p.product)" class="btn btn-dark">+</button>
+        </div>
+      </td>
+      <td>{{p.product.price * p.quantity | currency}}</td>
     </tr>
+    <tfoot>
+      <!-- <th></th> -->
+      <th></th>
+      <th></th>
+      <th>{{totalPrice | currency}}</th>
+    </tfoot>
   </table>
+  <button (click)="clear()" class="btn-danger btn-sm">Clear</button>
 </div>

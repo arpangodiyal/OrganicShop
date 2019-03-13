@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../shopping-cart.service';
-import { Observable, forkJoin } from 'rxjs';
-import { map, merge, concat } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -12,6 +11,7 @@ export class ShoppingCartComponent implements OnInit {
   totalItemsCount:Observable<number>;
   totalItems:Observable<any>;
   cartItems:any[] = [];
+  totalPrice:number = 0;
 
   constructor(private cartService: ShoppingCartService) { }
 
@@ -20,8 +20,23 @@ export class ShoppingCartComponent implements OnInit {
 
     this.cartService.getAllItems().subscribe(s => {
       this.cartItems = s;
-      console.log(this.cartItems);
+      this.totalPrice = 0;
+      for(let key in s){
+        this.totalPrice += s[key].product.price * s[key].quantity;
+      }
     })
+  }
+
+  add(product){
+    this.cartService.addToCart(product);
+  }
+
+  remove(product){
+    this.cartService.removeFromCart(product);
+  }
+
+  clear(){
+    this.cartService.removeAllItems();
   }
 
 }
