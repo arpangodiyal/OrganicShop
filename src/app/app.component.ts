@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ShoppingCartService } from './shopping-cart.service';
 
 @Component({
@@ -8,22 +8,33 @@ import { ShoppingCartService } from './shopping-cart.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
+  
   title = 'projectShop';
   user: Observable<{}>;
-  totalItems:Observable<number>;
+  subscription:Subscription;
+  totalItems = 0;
+
   constructor(public auth : AuthService, 
     private cartService:ShoppingCartService)
   {
-
     this.user = auth.getUser();
-    this.totalItems = this.cartService.getAllitemsCount();
+
+    this.cartService.getAllitemsCount().then(obs => {
+      this.subscription = obs.subscribe(s => {
+        this.totalItems = s;
+      })
+    })
     
   }
 
   
   logout(){
     this.auth.logout();
+  }
+
+  ngOnDestroy(){
+    //this.subscription.unsubscribe();
   }
 
   // isAdmin:boolean = () => {

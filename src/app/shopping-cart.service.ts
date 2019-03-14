@@ -31,8 +31,9 @@ export class ShoppingCartService {
       );
   }
 
-  getAllitemsCount(){
-    let cartId = localStorage.getItem('cartId');
+  async getAllitemsCount(){
+    let cartId = await this.getOrCreateCartId();
+    // if(!cartId) return Observable<number>;
     return this.db.object('/shopping-cart/' + cartId + '/items').valueChanges().pipe(
       map(s => {
         let total = 0;

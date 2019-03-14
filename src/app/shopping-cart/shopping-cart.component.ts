@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  totalItemsCount:Observable<number>;
+  totalItemsCount:number;
   totalItems:Observable<any>;
   cartItems:any[] = [];
   totalPrice:number = 0;
@@ -16,7 +16,11 @@ export class ShoppingCartComponent implements OnInit {
   constructor(private cartService: ShoppingCartService) { }
 
   ngOnInit() {
-    this.totalItemsCount = this.cartService.getAllitemsCount();
+    this.cartService.getAllitemsCount().then(obs => {
+      obs.subscribe(count => {
+        this.totalItemsCount = count;
+      })
+    });
 
     this.cartService.getAllItems().subscribe(s => {
       this.cartItems = s;

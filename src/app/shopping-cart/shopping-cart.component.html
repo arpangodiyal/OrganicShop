@@ -1,8 +1,11 @@
 <div class="container">
   <h1>Shopping Cart </h1>
 
-  <ng-container *ngIf="totalItemsCount | async as total">
-    <p>You have {{total}} items in your shopping cart </p>
+  <ng-container *ngIf="totalItemsCount">
+    <p>
+      You have {{totalItemsCount}} items in your shopping cart &nbsp;&nbsp;
+      <button (click)="clear()" class="btn-secondary btn-sm">Clear</button>
+    </p>
   </ng-container>
 
   <table class="table col-10">
@@ -33,10 +36,13 @@
     </tr>
     <tfoot>
       <!-- <th></th> -->
-      <th></th>
+      <th>
+        <a routerLink="/check-out">
+        <button class="btn btn-primary">Check out</button>
+        </a>
+      </th>
       <th></th>
       <th>{{totalPrice | currency}}</th>
     </tfoot>
   </table>
-  <button (click)="clear()" class="btn-danger btn-sm">Clear</button>
 </div>

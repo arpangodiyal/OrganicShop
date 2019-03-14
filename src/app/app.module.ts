@@ -21,15 +21,20 @@ import { ProductService } from './product.service';
 import { AuthGaurdService } from './auth-gaurd.service';
 import { AdminAuthGaurdService } from './admin-auth-gaurd.service';
 import { ShoppingCartService } from './shopping-cart.service';
+import { CheckOutService } from './check-out.service';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { ProductformComponent } from './productform/productform.component';
 import { ProductComponent } from './product/product.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 const appRoutes: Routes = [
   {path: 'shoppingCart', component:  ShoppingCartComponent},
+  {path: 'order-success/:id', component:  OrderSuccessComponent},
   {path: 'login', component:  LoginComponent},
+  {path: 'check-out', component:  CheckOutComponent, canActivate:[AuthGaurdService]},
   {path: 'check-out', component: CheckOutComponent, canActivate:[AuthGaurdService]},
   {path: 'admin-orders', component: AdminOrdersComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
   {path: 'admin-products/new', component: ProductformComponent, canActivate:[AuthGaurdService, AdminAuthGaurdService]},
@@ -58,7 +63,9 @@ var config = {
     AdminProductsComponent,
     AdminOrdersComponent,
     ProductformComponent,
-    ProductComponent
+    ProductComponent,
+    OrderSuccessComponent,
+    OrderSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +91,7 @@ var config = {
     CategoryService,
     ProductService,
     ShoppingCartService,
+    CheckOutService,
   ],
   bootstrap: [AppComponent]
 })
