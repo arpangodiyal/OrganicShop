@@ -7,19 +7,23 @@
 
         <div class="form-group">
           <label for="name">Name</label>
-          <input ngModel #customer="ngModel" id="name" name="name" class="form-control">
+          <input ngModel #customer="ngModel" id="name" name="name" class="form-control" required>
+          <div *ngIf="customer.touched && customer.invalid" class="alert alert-danger">This field is required</div>
         </div> <br>
     
         <div class="form-group">
           <label for="address">Address</label>
-          <input ngModel #line1="ngModel" id="address" name="addressLine1" class="form-control" placeholder="Line 1">
+          <input ngModel #line1="ngModel" id="address" name="addressLine1" class="form-control" placeholder="Line 1" required>
+          <div *ngIf="line1.touched && line1.invalid" class="alert alert-danger">This field is required</div>
           <br>
-          <input ngModel #line2 = "ngModel" id="address" name="addressLine2" class="form-control" placeholder="Line 2">
+          <input ngModel #line2 = "ngModel" id="address" name="addressLine2" class="form-control" placeholder="Line 2" required>
+          <div *ngIf="line2.touched && line2.invalid" class="alert alert-danger">This field is required</div>
         </div> <br>
     
         <div class="form-group">
           <label for="city">City</label>
-          <input ngModel #city="ngModel" id="city" name="city" class="form-control">
+          <input ngModel #city="ngModel" id="city" name="city" class="form-control" required>
+          <div *ngIf="city.touched && city.invalid" class="alert alert-danger">This field is required</div>
         </div>
     
         <button type="submit" class="btn btn-primary">Proceed to payment</button>

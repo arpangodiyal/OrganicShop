@@ -34,7 +34,7 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy(){
-    //this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   // isAdmin:boolean = () => {

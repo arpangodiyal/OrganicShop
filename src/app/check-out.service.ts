@@ -29,7 +29,6 @@ export class CheckOutService {
       map(user => {
         if(user){
           let userid = user.uid;
-          console.log(userid);
           return this.db.list('/orders', ref => ref.orderByChild('user').equalTo(userid)).valueChanges();
         }
       })
