@@ -13,6 +13,7 @@ export class CheckOutComponent implements OnInit {
 
   shipping:{};
   products:any[];
+  len = 0;
   
   constructor(private cartService:ShoppingCartService,
     private checkOutService:CheckOutService,
@@ -23,6 +24,7 @@ export class CheckOutComponent implements OnInit {
   ngOnInit() {
     this.cartService.getAllItems().subscribe(s => {
       this.products = s;
+      this.len = s.length;
     });
   }
 
