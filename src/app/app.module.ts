@@ -29,9 +29,11 @@ import { ProductformComponent } from './productform/productform.component';
 import { ProductComponent } from './product/product.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 const appRoutes: Routes = [
   {path: 'shoppingCart', component:  ShoppingCartComponent},
+  {path: 'my-orders', component:  MyOrdersComponent, canActivate:[AuthGaurdService]},
   {path: 'order-success/:id', component:  OrderSuccessComponent},
   {path: 'login', component:  LoginComponent},
   {path: 'check-out', component:  CheckOutComponent, canActivate:[AuthGaurdService]},
@@ -65,7 +67,8 @@ var config = {
     ProductformComponent,
     ProductComponent,
     OrderSuccessComponent,
-    OrderSummaryComponent
+    OrderSummaryComponent,
+    MyOrdersComponent
   ],
   imports: [
     BrowserModule,

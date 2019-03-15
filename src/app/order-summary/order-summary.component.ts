@@ -14,12 +14,11 @@ export class OrderSummaryComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.products);
   }
 
   ngOnChanges(changes:SimpleChanges){
     if(this.products && changes['products']){
-      console.log(this.products);
+
       this.totalItemsCount = 0;
       this.totalPrice = 0;
       for(let i = 0; i < this.products.length; i++){

@@ -1,0 +1,10 @@
+<div class="container">
+  <br>
+    <div class="row">
+      <div *ngFor="let i of userOrders" class="col-6">
+        <p> {{i.dateCreated | date}}</p>
+        <app-order-summary [products]="i.products"></app-order-summary>
+      </div>
+      <br>
+    </div>
+</div>
