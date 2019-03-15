@@ -1,6 +1,6 @@
 <div class="container">
   <br><br>
-  <div class="row">
+  <div *ngIf="this.len > 0; else noItem" class="row">
     
     <div class="col-6">
       <form #f="ngForm" (ngSubmit)="save(f.value)">
@@ -36,4 +36,8 @@
     </div>
 
   </div>
+
+  <ng-template #noItem>
+    <h3>You have no item in your cart</h3>
+  </ng-template>
 </div>

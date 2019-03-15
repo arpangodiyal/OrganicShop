@@ -16,7 +16,7 @@ export class ProductformComponent implements OnInit, OnDestroy {
   categories:Observable<{}[]>;
   price:number;
   id:string;
-  product:{} = {};
+  product:any = {};
 
   constructor(categoryService: CategoryService, 
     private productService:ProductService,
@@ -49,7 +49,9 @@ export class ProductformComponent implements OnInit, OnDestroy {
     if(this.id){
       this.productService.getProduct(this.id).pipe(
         take(1)
-      ).subscribe(r => {this.product = r;});
+      ).subscribe(s => {
+        this.product = s;
+      })
     }
   }
 
