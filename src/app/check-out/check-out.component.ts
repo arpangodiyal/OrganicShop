@@ -33,7 +33,6 @@ export class CheckOutComponent implements OnInit {
       products:this.products,
       user:this.authService.afAuth.auth.currentUser.uid
     }
-    console.log(order);
     this.checkOutService.placeOrder(order).then(res => {
       this.router.navigate(['/order-success', res.key]);
     })
